@@ -1,3 +1,4 @@
+print("Adryan Hub carregado!")
 --!strict
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
