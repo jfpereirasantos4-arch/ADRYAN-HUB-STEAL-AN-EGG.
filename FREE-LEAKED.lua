@@ -1,4 +1,4 @@
-[13:16, 30/08/2026] santosxz_rlq: --!strict
+!strict
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
