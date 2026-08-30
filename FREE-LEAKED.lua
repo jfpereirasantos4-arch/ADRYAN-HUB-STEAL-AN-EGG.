@@ -1,4 +1,4 @@
--- Adryan Hub - Menu Principal
+-- Adryan Hub com Abas
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
@@ -7,8 +7,8 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 500, 0, 320)
-frame.Position = UDim2.new(0.5, -250, 0.5, -160)
+frame.Size = UDim2.new(0, 600, 0, 400)
+frame.Position = UDim2.new(0.5, -300, 0.5, -200)
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.BorderSizePixel = 0
 frame.Parent = screenGui
@@ -26,81 +26,111 @@ title.Font = Enum.Font.GothamBold
 title.TextSize = 34
 title.Parent = frame
 
--- Botão Auto Farm
-local autoFarmBtn = Instance.new("TextButton")
-autoFarmBtn.Size = UDim2.new(0, 220, 0, 50)
-autoFarmBtn.Position = UDim2.new(0, 20, 0, 80)
-autoFarmBtn.Text = "⚡ Auto Farm"
-autoFarmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-autoFarmBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-autoFarmBtn.Font = Enum.Font.GothamBold
-autoFarmBtn.TextSize = 22
-autoFarmBtn.Parent = frame
+-- Container de abas
+local tabsFrame = Instance.new("Frame")
+tabsFrame.Size = UDim2.new(0, 150, 1, -50)
+tabsFrame.Position = UDim2.new(0, 0, 0, 50)
+tabsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+tabsFrame.Parent = frame
 
-local afCorner = Instance.new("UICorner")
-afCorner.CornerRadius = UDim.new(0, 10)
-afCorner.Parent = autoFarmBtn
+local contentFrame = Instance.new("Frame")
+contentFrame.Size = UDim2.new(1, -150, 1, -50)
+contentFrame.Position = UDim2.new(0, 150, 0, 50)
+contentFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+contentFrame.Parent = frame
 
-autoFarmBtn.MouseButton1Click:Connect(function()
+-- Função para trocar abas
+local function showTab(tabName)
+    for _, child in pairs(contentFrame:GetChildren()) do
+        child.Visible = false
+    end
+    local tab = contentFrame:FindFirstChild(tabName)
+    if tab then
+        tab.Visible = true
+    end
+end
+
+-- Criar botão de aba
+local function createTabButton(name, posY)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1, 0, 0, 40)
+    btn.Position = UDim2.new(0, 0, 0, posY)
+    btn.Text = name
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 20
+    btn.Parent = tabsFrame
+
+    btn.MouseButton1Click:Connect(function()
+        showTab(name)
+    end)
+end
+
+-- Aba Farm
+local farmTab = Instance.new("Frame")
+farmTab.Name = "Farm"
+farmTab.Size = UDim2.new(1, 0, 1, 0)
+farmTab.BackgroundTransparency = 1
+farmTab.Parent = contentFrame
+
+local farmBtn = Instance.new("TextButton")
+farmBtn.Size = UDim2.new(0, 200, 0, 50)
+farmBtn.Position = UDim2.new(0, 20, 0, 20)
+farmBtn.Text = "⚡ Auto Farm"
+farmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+farmBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+farmBtn.Font = Enum.Font.GothamBold
+farmBtn.TextSize = 22
+farmBtn.Parent = farmTab
+farmBtn.MouseButton1Click:Connect(function()
     print("Auto Farm ativado!")
-    -- Coloque aqui o código do Auto Farm
 end)
 
--- Botão Teleport
-local tpBtn = Instance.new("TextButton")
-tpBtn.Size = UDim2.new(0, 220, 0, 50)
-tpBtn.Position = UDim2.new(0, 20, 0, 150)
-tpBtn.Text = "🌀 Teleport"
-tpBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-tpBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
-tpBtn.Font = Enum.Font.GothamBold
-tpBtn.TextSize = 22
-tpBtn.Parent = frame
+-- Aba Visual
+local visualTab = Instance.new("Frame")
+visualTab.Name = "Visual"
+visualTab.Size = UDim2.new(1, 0, 1, 0)
+visualTab.BackgroundTransparency = 1
+visualTab.Parent = contentFrame
 
-local tpCorner = Instance.new("UICorner")
-tpCorner.CornerRadius = UDim.new(0, 10)
-tpCorner.Parent = tpBtn
+local visualBtn = Instance.new("TextButton")
+visualBtn.Size = UDim2.new(0, 200, 0, 50)
+visualBtn.Position = UDim2.new(0, 20, 0, 20)
+visualBtn.Text = "🌈 Visual Mod"
+visualBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+visualBtn.BackgroundColor3 = Color3.fromRGB(200, 100, 255)
+visualBtn.Font = Enum.Font.GothamBold
+visualBtn.TextSize = 22
+visualBtn.Parent = visualTab
+visualBtn.MouseButton1Click:Connect(function()
+    print("Visual Mod ativado!")
+end)
 
-tpBtn.MouseButton1Click:Connect(function()
+-- Aba Extras
+local extrasTab = Instance.new("Frame")
+extrasTab.Name = "Extras"
+extrasTab.Size = UDim2.new(1, 0, 1, 0)
+extrasTab.BackgroundTransparency = 1
+extrasTab.Parent = contentFrame
+
+local extrasBtn = Instance.new("TextButton")
+extrasBtn.Size = UDim2.new(0, 200, 0, 50)
+extrasBtn.Position = UDim2.new(0, 20, 0, 20)
+extrasBtn.Text = "🌀 Teleport"
+extrasBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+extrasBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+extrasBtn.Font = Enum.Font.GothamBold
+extrasBtn.TextSize = 22
+extrasBtn.Parent = extrasTab
+extrasBtn.MouseButton1Click:Connect(function()
     print("Teleport ativado!")
-    -- Coloque aqui o código de teleport
 end)
 
--- Botão Configurações
-local settingsBtn = Instance.new("TextButton")
-settingsBtn.Size = UDim2.new(0, 220, 0, 50)
-settingsBtn.Position = UDim2.new(0, 20, 0, 220)
-settingsBtn.Text = "⚙️ Configurações"
-settingsBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-settingsBtn.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
-settingsBtn.Font = Enum.Font.GothamBold
-settingsBtn.TextSize = 22
-settingsBtn.Parent = frame
+-- Botões de abas
+createTabButton("Farm", 0)
+createTabButton("Visual", 40)
+createTabButton("Extras", 80)
 
-local stCorner = Instance.new("UICorner")
-stCorner.CornerRadius = UDim.new(0, 10)
-stCorner.Parent = settingsBtn
-
-settingsBtn.MouseButton1Click:Connect(function()
-    print("Abrindo Configurações...")
-    -- Coloque aqui opções extras
-end)
-
--- Botão Fechar Hub
-local closeBtn = Instance.new("TextButton")
-closeBtn.Size = UDim2.new(0, 220, 0, 50)
-closeBtn.Position = UDim2.new(0, 260, 0, 220)
-closeBtn.Text = "❌ Fechar Hub"
-closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 22
-closeBtn.Parent = frame
-
-local closeCorner = Instance.new("UICorner")
-closeCorner.CornerRadius = UDim.new(0, 10)
-closeCorner.Parent = closeBtn
-
-closeBtn.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
-end)
+-- Mostrar aba inicial
+showTab("Farm")
